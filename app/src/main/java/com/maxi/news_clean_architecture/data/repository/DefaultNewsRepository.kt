@@ -66,7 +66,7 @@ class DefaultNewsRepository @Inject constructor(
             }
 
             else -> {
-                error("Unhandled Result type")
+                error("Unhandled response type!")
             }
         }
     }.flowOn(dispatcherProvider.io)
