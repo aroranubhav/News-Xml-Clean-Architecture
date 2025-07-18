@@ -6,6 +6,8 @@ sealed class UiState<out T> {
 
     data class ApiError(val code: Int, val message: String?) : UiState<Nothing>()
 
+    data class DatabaseError(val error: String) : UiState<Nothing>()
+
     data object NetworkError : UiState<Nothing>()
 
     data object UnknownError : UiState<Nothing>()

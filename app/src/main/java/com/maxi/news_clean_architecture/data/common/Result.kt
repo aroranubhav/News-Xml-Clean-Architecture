@@ -6,6 +6,8 @@ sealed class Result<out T> {
 
     data class ApiError(val code: Int, val message: String?) : Result<Nothing>()
 
+    data class DatabaseError(val error: String) : Result<Nothing>()
+
     data object NetworkError : Result<Nothing>()
 
     data object UnknownError : Result<Nothing>()
