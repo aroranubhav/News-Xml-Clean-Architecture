@@ -5,7 +5,7 @@ import com.maxi.news_clean_architecture.data.remote.ApiConstants.QueryParams.COU
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.QueryParams.DEFAULT_COUNTRY
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.QueryParams.DEFAULT_LANGUAGE
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.QueryParams.LANGUAGE
-import com.maxi.news_clean_architecture.domain.model.NewsResponse
+import com.maxi.news_clean_architecture.data.remote.model.NewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
