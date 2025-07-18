@@ -5,8 +5,9 @@ import com.maxi.news_clean_architecture.data.common.safeApiCall
 import com.maxi.news_clean_architecture.data.local.dao.NewsDao
 import com.maxi.news_clean_architecture.data.local.model.toDomain
 import com.maxi.news_clean_architecture.data.remote.api.NetworkService
+import com.maxi.news_clean_architecture.data.remote.model.toDomain
+import com.maxi.news_clean_architecture.data.remote.model.toEntity
 import com.maxi.news_clean_architecture.domain.model.Article
-import com.maxi.news_clean_architecture.domain.model.toEntity
 import com.maxi.news_clean_architecture.domain.repository.NewsRepository
 import com.maxi.news_clean_architecture.utils.DispatcherProvider
 import kotlinx.coroutines.flow.Flow
@@ -28,23 +29,35 @@ class DefaultNewsRepository @Inject constructor(
 
         when (response) {
             is Result.Success -> {
+                val dto = response.data
+                val entities = dto.map { it.toEntity() }
+
                 safeApiCall {
-                    newsDao.insertArticles(response.data.map { it.toEntity() })
+                    newsDao.insertArticles(entities)
                 }
-                emit(Result.Success(response.data))
+
+                val cached = safeApiCall {
+                    newsDao.getArticles().first()
+                }
+
+                if (cached is Result.Success) {
+                    emit(Result.Success(cached.data.map { it.toDomain() }))
+                } else {
+                    emit(Result.Success(dto.map { it.toDomain() }))
+                }
             }
 
             is Result.ApiError,
             is Result.NetworkError,
             is Result.UnknownError -> {
-                val cachedArticles = safeApiCall {
+                val cached = safeApiCall {
                     newsDao.getArticles().first()
                 }
 
-                if (cachedArticles is Result.Success) {
-                    emit(Result.Success(cachedArticles.data.map { it.toDomain() }))
+                if (cached is Result.Success) {
+                    emit(Result.Success(cached.data.map { it.toDomain() }))
                 } else {
-                    emit(response)
+                    emit(Result.UnknownError)
                 }
             }
 
@@ -53,7 +66,7 @@ class DefaultNewsRepository @Inject constructor(
             }
 
             else -> {
-                emit(response)
+                error("Unhandled Result type")
             }
         }
     }.flowOn(dispatcherProvider.io)
