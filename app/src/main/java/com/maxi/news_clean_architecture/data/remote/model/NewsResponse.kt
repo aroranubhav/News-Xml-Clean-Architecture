@@ -1,4 +1,4 @@
-package com.maxi.news_clean_architecture.domain.model
+package com.maxi.news_clean_architecture.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.JsonKeys.ARTICLES
@@ -11,5 +11,5 @@ data class NewsResponse(
     @SerializedName(TOTAL_RESULTS)
     val totalResults: Int = 0,
     @SerializedName(ARTICLES)
-    val articles: List<Article> = arrayListOf()
+    val articles: List<ArticleDto> = arrayListOf()
 )
