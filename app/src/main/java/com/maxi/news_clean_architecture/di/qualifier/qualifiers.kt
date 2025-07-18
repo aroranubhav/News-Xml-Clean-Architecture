@@ -1,4 +1,4 @@
-package com.maxi.news_clean_architecture.di
+package com.maxi.news_clean_architecture.di.qualifier
 
 import javax.inject.Qualifier
 
