@@ -39,6 +39,9 @@ class NewsViewModel @Inject constructor(
                         is Result.ApiError ->
                             _uiState.value = UiState.ApiError(result.code, result.message)
 
+                        is Result.DatabaseError ->
+                            _uiState.value = UiState.DatabaseError(result.error)
+
                         is Result.NetworkError ->
                             _uiState.value = UiState.NetworkError
 
