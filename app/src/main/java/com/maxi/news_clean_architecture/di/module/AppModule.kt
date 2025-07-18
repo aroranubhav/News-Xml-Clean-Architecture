@@ -1,17 +1,23 @@
 package com.maxi.news_clean_architecture.di.module
 
+import android.content.Context
+import androidx.room.Room
 import com.maxi.news_clean_architecture.BuildConfig
+import com.maxi.news_clean_architecture.data.local.NewsDatabase
+import com.maxi.news_clean_architecture.data.local.RoomConstants.Database.NEWS
+import com.maxi.news_clean_architecture.data.local.dao.NewsDao
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.BASE_URL
 import com.maxi.news_clean_architecture.data.remote.ApiConstants.Headers.USER_AGENT
 import com.maxi.news_clean_architecture.data.remote.api.NetworkService
 import com.maxi.news_clean_architecture.data.remote.interceptor.AuthorizationInterceptor
 import com.maxi.news_clean_architecture.data.remote.interceptor.ErrorHandlingInterceptor
-import com.maxi.news_clean_architecture.di.BaseUrl
+import com.maxi.news_clean_architecture.di.qualifier.BaseUrl
 import com.maxi.news_clean_architecture.utils.DefaultDispatcherProvider
 import com.maxi.news_clean_architecture.utils.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -86,6 +92,24 @@ class AppModule {
         retrofit: Retrofit
     ): NetworkService =
         retrofit.create(NetworkService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRoomDatabase(
+        @ApplicationContext context: Context
+    ): NewsDatabase =
+        Room
+            .databaseBuilder(
+                context,
+                NewsDatabase::class.java,
+                NEWS
+            ).build()
+
+    @Provides
+    fun provideNewsDao(
+        database: NewsDatabase
+    ): NewsDao =
+        database.newsDao()
 
     @Provides
     @Singleton
