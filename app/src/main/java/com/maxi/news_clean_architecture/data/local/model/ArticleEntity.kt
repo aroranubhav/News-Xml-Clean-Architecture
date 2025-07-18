@@ -9,6 +9,7 @@ import com.maxi.news_clean_architecture.data.local.RoomConstants.COLUMNS.IMAGE_U
 import com.maxi.news_clean_architecture.data.local.RoomConstants.COLUMNS.TITLE
 import com.maxi.news_clean_architecture.data.local.RoomConstants.COLUMNS.URL
 import com.maxi.news_clean_architecture.data.local.RoomConstants.TABLE.ARTICLES
+import com.maxi.news_clean_architecture.data.remote.model.ArticleDto
 import com.maxi.news_clean_architecture.domain.model.Article
 
 @Entity(tableName = ARTICLES)
@@ -25,6 +26,9 @@ data class ArticleEntity(
     @ColumnInfo(IMAGE_URL)
     val imageUrl: String
 )
+
+fun ArticleEntity.toDto(): ArticleDto =
+    ArticleDto(author, title, description, url, imageUrl)
 
 fun ArticleEntity.toDomain(): Article =
     Article(author, title, description, url, imageUrl)
