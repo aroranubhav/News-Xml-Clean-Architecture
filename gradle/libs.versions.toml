@@ -10,14 +10,17 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 ksp = "2.0.21-1.0.28"
-viewmodel = "2.9.1"
-dagger = "2.56.1"
+viewmodel = "2.9.2"
 retrofit = "2.9.0"
 glide = "4.16.0"
 browser = "1.8.0"
 hilt = "2.51.1"
 room = "2.7.2"
 okHttp3 = "4.12.0"
+coroutinesTest = "1.7.3"
+turbine = "1.0.0"
+mockitoCore = "4.8.0"
+mockitoKotlin = "4.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +43,11 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okHttp3" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
