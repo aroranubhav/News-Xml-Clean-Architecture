@@ -23,6 +23,7 @@ class DefaultNewsRepository @Inject constructor(
 ) : NewsRepository {
 
     override fun getNews(): Flow<Result<List<Article>>> = flow {
+        emit(Result.Loading)
         val response = safeApiCall {
             networkService.getNews().articles
         }
@@ -40,7 +41,7 @@ class DefaultNewsRepository @Inject constructor(
                     newsDao.getArticles().first()
                 }
 
-                if (cached is Result.Success) {
+                if (cached is Result.Success && cached.data.isNotEmpty()) {
                     emit(Result.Success(cached.data.map { it.toDomain() }))
                 } else {
                     emit(Result.Success(dto.map { it.toDomain() }))
