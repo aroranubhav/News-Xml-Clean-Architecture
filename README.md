@@ -1,6 +1,6 @@
 # 📰 News XML App - Clean Architecture (MVVM + Coroutines + Hilt + Room)
 
-A simple news reader Android application built with modern Android development practices, using **Clean Architecture**, **Coroutines**, **Hilt**, and **Room**. It fetches news data from a remote https://newsapi.org feed and displays it in a user-friendly UI.
+A modular, scalable Android application that demonstrates Clean Architecture principles, leveraging Coroutines for asynchronous data handling, Hilt for dependency injection, and Room for local persistence. The app retrieves news articles from the NewsAPI and presents them in a modern, responsive UI, following separation of concerns across data, domain, and presentation layers.
 
 ---
 
